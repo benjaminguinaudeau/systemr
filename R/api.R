@@ -1,4 +1,4 @@
-#' @post /our_poker
+#' @post /systemr
 #' @serializer unboxedJSON
 function(req){
   cmd <- req$postBody
