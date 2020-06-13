@@ -4,7 +4,7 @@
 \alias{serve_cli}
 \title{serve_cli}
 \usage{
-serve_cli(host = "localhost", port = 5000)
+serve_cli(host = "127.0.0.1", port = 5000)
 }
 \description{
 serve_cli
