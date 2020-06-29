@@ -11,6 +11,7 @@ function(req){
 function(req){
   cmd <- req$postBody
   print(glue::glue("[{Sys.time()} ] {cmd}"))
+
   out <- system(cmd, intern = T)
   return(out)
 }
