@@ -1,0 +1,81 @@
+---
+title: "lab"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+
+```
+
+
+```{r}
+here::here()
+
+pr <- plumber::plumb(file = "/Users/benjaminguinaudeau/Google Drive/Konstanz/SideProjects/package/systemr/R/api.R")
+pr$run(host = "192.168.1.2", port = 3000, swagger = F)
+
+url <- "https://m.tiktok.com/api/user/detail/?uniqueId=voteblue&language=en&verifyFp=&_signature=gyj3OAAgEBCxv80N9qFu34Ms9iAAN3Z"
+
+
+
+httr::POST("http://172.97.137.24:5000/get", body = data,  encode = "json")
+
+```
+
+
+```{r}
+url <- "https://sepaq.queue-it.net/spa-api/queue/sepaq/cartesprd22juin2020/8a1efe9b-6df6-490a-85f1-937494a77f18/status?cid=fr-CA&l=General"
+
+headers <- c(
+  "accept" = "application/json, text/javascript, */*; q=0.01",
+  "accept-language" = "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,de;q=0.6",
+  "content-type" = "application/json",
+  "sec-fetch-dest" = "empty",
+  "sec-fetch-mode" = "cors",
+  "sec-fetch-site"= "same-origin",
+  "x-queueit-queueitem-v1" = "QmVUthruUr_g-_SZCsU9D6LUyY_AIiFlawVTLnDJtylbbVVWOTZzvP5NRKdu3bqvBFUefWwVa0mBJ9raXjytUzMyjujS5VLeJtfHdoPz2ZxDIm_AoIqmenP43i_lHAXP27P4enAPjyqNCY9E6n772HjoQsJd-jVBhFxLzD2dB-sYoIOJ0qAjLrlAFw2DuVnFbJ8Hu96DnunpcytXR5Rhuj_hNUyYBpTiCQ62Dgrjl69s40WLIuY0ZxVFwZyFMfQjyxla9vhNDs7c-b9yMKxUMPsqPJ7ECAd0-oB28dln0q3EdCGqMHf5QHiUQP4AZupkcUTEZpue4sF-JwTGqaC0UMEW4O550iEGOrlBK-1IKi--VK0TcF02EjmnMp9d0iS97o59ZUR0uLf7vei-iY6favZ_wxyJWHwJWE8kFPUUxf9H3VbbLXryQW4tLnIJLtHCTdvDoqcDEiOrPtdJYc5yRjw5ejnZNFsMzBO1tMGMr1JgXr4rUYprBOJSrBJ4l2sJR7lLjac91ZO9o9A--UVNaoZIY53OBhIB_4Npdj_x_BwxZ0h_fV48BYRG89JppFahlCPPaB1zaZwoFp_6Mk8ELoxAfoR1DKU-UkXRlCvnApIoVq0zh3_jRF7wNwvEyM3T3zWXVGkVZ_xTzU71ZxX8xu_wYviy0WMpR4iIeoDDYuj7iaswd_XTOO8j_kKz1JSc5CAagXobU6xvsydBBviUl0Kc6jDPld_l7kZWiw1jNEEsPK_fTnHORjtZsbIIJa7zVWNdBWHqzp3FNbs_61P88Sg7sNpZM_mMlF6riO2KFi0fjNL_VR81sbDUPLztYmuKMrH9baSlYpfnDxZZ66447Vj5Sv0Bq2p9Vz3eThzr2duQONH75kcpTnt8jMy9381KhEjySy_Gp2IyyLJyATw8bc0X9woBbahh6AF-IQZ5Zlj1WavGw7WIcwjLP98B1h40O6-DrAE42b2Rm6vzhphDnU2KCsYTAEtihSiJsuhUNB4yM0RpC8IKZQD-EsSFeh900",
+  "x-requested-with"= "XMLHttpRequest", 
+  "referrer" = "https://sepaq.queue-it.net/?c=sepaq&e=cartesprd22juin2020&t=https%3A%2F%2Fwww.sepaq.com%2Ffr%2Freservation%2Fparcs-nationaux%2Fcarte-annuelle&cv=-1342651012&cid=fr-CA&l=Sepaq",
+  "referrerPolicy" = "no-referrer-when-downgrade",
+  "method" = "POST",
+  "mode" = "cors",
+  "credentials" = "include"
+)
+
+body <- list("targetUrl" = "https://www.sepaq.com/fr/reservation/parcs-nationaux/carte-annuelle",
+             "customUrlParams" = "",
+             "layoutVersion" = 160876592643,
+             "layoutName" = "General",
+             "isClientRedayToRedirect" = "false",
+             "isBeforeOrIdle" = "false")
+
+out <- httr::POST(url,body =  body, httr::add_headers(.headers = headers))
+
+rawToChar(out$content)
+```
+
+
+```{r}
+req <- "curl 'https://sepaq.queue-it.net/spa-api/queue/sepaq/cartesprd22juin2020/8a1efe9b-6df6-490a-85f1-937494a77f18/status?cid=fr-CA&l=General' \
+  -H 'authority: sepaq.queue-it.net' \
+  -H 'accept: application/json, text/javascript, */*; q=0.01' \
+  -H 'x-requested-with: XMLHttpRequest' \
+  -H 'x-queueit-queueitem-v1: QmVUthruUr_g-_SZCsU9D6LUyY_AIiFlawVTLnDJtylbbVVWOTZzvP5NRKdu3bqvBFUefWwVa0mBJ9raXjytUzMyjujS5VLeJtfHdoPz2ZxDIm_AoIqmenP43i_lHAXP27P4enAPjyqNCY9E6n772HjoQsJd-jVBhFxLzD2dB-sYoIOJ0qAjLrlAFw2DuVnFbJ8Hu96DnunpcytXR5Rhuj_hNUyYBpTiCQ62Dgrjl69s40WLIuY0ZxVFwZyFMfQjyxla9vhNDs7c-b9yMKxUMPsqPJ7ECAd0-oB28dln0q3EdCGqMHf5QHiUQP4AZupkcUTEZpue4sF-JwTGqaC0UMEW4O550iEGOrlBK-1IKi--VK0TcF02EjmnMp9d0iS97o59ZUR0uLf7vei-iY6favZ_wxyJWHwJWE8kFPUUxf9H3VbbLXryQW4tLnIJLtHCTdvDoqcDEiOrPtdJYc5yRjw5ejnZNFsMzBO1tMGMr1JgXr4rUYprBOJSrBJ4l2sJR7lLjac91ZO9o9A--UVNaoZIY53OBhIB_4Npdj_x_BwxZ0h_fV48BYRG89JppFahlCPPaB1zaZwoFp_6Mk8ELoxAfoR1DKU-UkXRlCvnApIoVq0zh3_jRF7wNwvEyM3T3zWXVGkVZ_xTzU71ZxX8xu_wYviy0WMpR4iIeoDDYuj7iaswd_XTOO8j_kKz1JSc5CAagXobU6xvsydBBviUl0Kc6jDPld_l7kZWiw1jNEEsPK_fTnHORjtZsbIIJa7zVWNdBWHqzp3FNbs_61P88Sg7sNpZM_mMlF6riO2KFi0fjNL_VR81sbDUPLztYmuKMrH9baSlYpfnDxZZ66447Vj5Sv0Bq2p9Vz3eThzr2duQONH75kcpTnt8jMy9381KhEjySy_Gp2IyyLJyATw8bc0X9woBbahh6AF-IQZ5Zlj1WavGw7WIcwjLP98B1h40O6-DrAE42b2Rm6vzhphDnU2KCsYTAEtihSiJsuhUNB4yM0RpC8IKZQD-EsSFeh900' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36' \
+  -H 'content-type: application/json' \
+  -H 'origin: https://sepaq.queue-it.net' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: https://sepaq.queue-it.net/?c=sepaq&e=cartesprd22juin2020&t=https%3A%2F%2Fwww.sepaq.com%2Ffr%2Freservation%2Fparcs-nationaux%2Fcarte-annuelle&cv=-1342651012&cid=fr-CA&l=Sepaq' \
+  -H 'accept-language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,de;q=0.6' \
+  -H 'cookie: Queue-it-sepaq_______________campingprd27mai2020=Cid=fr-CA&f=0; Queue-it=u=fc155333-c4c2-475c-ba60-718a59d4435d&email=bguinaudeau@gmail.com; Queue-it-sepaq_______________cartesprd22juin2020=Qid=8a1efe9b-6df6-490a-85f1-937494a77f18&Cid=fr-CA&f=0; Queue-it-8a1efe9b-6df6-490a-85f1-937494a77f18=uifh=ag-qW4FMPi1qXfW5U1l8IaLUyY_AIiFlawVTLnDJtyn_ww6D6YFgqpW_wVIQp-3P0&CaptchaHash=-1342651012&WasRedirected=false&i=637284383574638269' \
+  --data-binary '{"targetUrl":"https://www.sepaq.com/fr/reservation/parcs-nationaux/carte-annuelle","customUrlParams":"","layoutVersion":160876592643,"layoutName":"General","isClientRedayToRedirect":true,"isBeforeOrIdle":false}' \
+  --compressed"
+```
+
