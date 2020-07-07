@@ -9,8 +9,8 @@ serve_cli <- function(host = "127.0.0.1", port = 5000){
 
 #' system_api
 #' @export
-system_api <- function(cmd = "", host = "localhost", port = 5000, verbose){
-  endpoint <- ifelse(verbose, "systemr", "sytemr_verbose")
+system_api <- function(cmd = "", host = "localhost", port = 5000, verbose = F){
+  endpoint <- ifelse(verbose, "sytemr_verbose", "systemr")
   req <- httr::POST(url = glue::glue("http://{host}:{port}/{endpoint}"),  body  = cmd, encode = "json")
   rawToChar(req$content)
 }
