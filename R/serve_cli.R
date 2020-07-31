@@ -1,8 +1,9 @@
 #' serve_cli
 #' @export
 serve_cli <- function(host = "0.0.0.0", port = 5000){
-  file <- fs::file_temp()
-  download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
+  # file <- fs::file_temp()
+  # download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
+  file <- here::here("R/api.R")
   pr <- plumber::plumb(file = file)
   pr$run(host = host, port = port, swagger = F)
 }
@@ -17,15 +18,22 @@ system_api <- function(cmd = "", host = "localhost", port = 5000, verbose = F){
 
 #' connect_api
 #' @export
-connect_api <- function(country = "us", index = NULL, host = "localhost", port = 5000, verbose = F){
-  endpoint <- "vpn"
-  req <- httr::POST(url = glue::glue("http://{host}:{port}/{endpoint}"),  body  = list(country = country, index = index), encode = "json")
+connect_api <- function(country = "us", index = 0, host = "localhost", port = 5000){
+
+  req <- httr::POST(url = glue::glue("http://{host}:{port}/vpn"),  body  = list(country = country, index = index), encode = "json")
+  rawToChar(req$content)
+}
+
+#' ip_api
+#' @export
+ip_api <- function(host = "localhost", port = 5000){
+  req <- httr::POST(url = glue::glue("http://{host}:{port}/ip"),  body  = list(), encode = "json")
   rawToChar(req$content)
 }
 
 #' connect
 #' @export
-connect <- function(country = "us", index = NULL){
+connect <- function(country = "us", index = 0){
   system("ip rule add fwmark 65 table novpn")
   system("ip route add default via 192.168.1.1 dev eth0 table novpn")
   system("ip route flush cache")
@@ -33,7 +41,7 @@ connect <- function(country = "us", index = NULL){
 
 
   files <-  stringr::str_subset(dir("/etc/openvpn", pattern  = glue::glue("^{country}"), full.names = T),"\\.tcp")
-  if(!is.null(index)){
+  if(index != 0){
     file <- stringr::str_subset(files, paste0(country, index, "\\."))
   } else {
     file <- sample(files, 1)

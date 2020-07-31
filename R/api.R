@@ -16,8 +16,9 @@ function(req){
 #' @post /vpn
 #' @serializer unboxedJSON
 function(req){
-  cmd <- req$postBody
-  connect(cmd$country, cmd$index)
+  cmd <- jsonlite::fromJSON(req$postBody)
+  print(cmd)
+  systemr::connect(cmd$country, cmd$index)
 
   return("")
 }
@@ -32,7 +33,7 @@ function(req){
   return(out)
 }
 
-#' @post /no_vpn
+#' @post /kill_vpn
 #' @serializer unboxedJSON
 function(req){
   system("killall openvpn")
