@@ -26,6 +26,12 @@ connect_api <- function(country = "us", index = NULL, host = "localhost", port =
 #' connect
 #' @export
 connect <- function(country = "us", index = NULL){
+  system("ip rule add fwmark 65 table novpn")
+  system("ip route add default via 192.168.1.1 dev eth0 table novpn")
+  system("ip route flush cache")
+  system("iptables -t mangle -A OUTPUT -p tcp --sport 5000 -j MARK --set-mark 65")
+
+
   files <-  stringr::str_subset(dir("/etc/openvpn", pattern  = glue::glue("^{country}"), full.names = T),"\\.tcp")
   if(!is.null(index)){
     file <- stringr::str_subset(files, paste0(country, index, "\\."))
