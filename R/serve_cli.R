@@ -21,14 +21,21 @@ system_api <- function(cmd = "", host = "localhost", port = 5000, verbose = F){
 connect_api <- function(country = "us", index = 0, host = "localhost", port = 5000){
 
   req <- httr::POST(url = glue::glue("http://{host}:{port}/vpn"),  body  = list(country = country, index = index), encode = "json")
-  rawToChar(req$content)
+  jsonlite::fromJSON(rawToChar(req$content))
+}
+
+#' kill_vpn_api
+#' @export
+kill_vpn_api <- function(host = "localhost", port = 5000){
+
+  req <- httr::POST(url = glue::glue("http://{host}:{port}/kill_vpn"),  body  = list(), encode = "json")
 }
 
 #' ip_api
 #' @export
 ip_api <- function(host = "localhost", port = 5000){
   req <- httr::POST(url = glue::glue("http://{host}:{port}/ip"),  body  = list(), encode = "json")
-  rawToChar(req$content)
+  jsonlite::fromJSON(rawToChar(req$content))
 }
 
 #' connect
@@ -55,5 +62,7 @@ connect <- function(country = "us", index = 0){
 
   system(glue::glue('echo "auth-user-pass auth.txt" >> {file}'))
   system(glue::glue("openvpn {file} &"))
+
+  return(file)
 }
 

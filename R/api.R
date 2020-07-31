@@ -17,10 +17,10 @@ function(req){
 #' @serializer unboxedJSON
 function(req){
   cmd <- jsonlite::fromJSON(req$postBody)
-  print(cmd)
-  systemr::connect(cmd$country, cmd$index)
 
-  return("")
+  file <- systemr::connect(cmd$country, cmd$index)
+
+  return(file)
 }
 
 #' @post /sytemr_verbose
