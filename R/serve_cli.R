@@ -1,9 +1,9 @@
 #' serve_cli
 #' @export
 serve_cli <- function(host = "0.0.0.0", port = 5000){
-  # file <- fs::file_temp()
-  # download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
-  file <- here::here("R/api.R")
+  file <- fs::file_temp()
+  download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
+  # file <- here::here("R/api.R")
   pr <- plumber::plumb(file = file)
   pr$run(host = host, port = port, swagger = F)
 }
