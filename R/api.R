@@ -6,6 +6,22 @@ function(req){
   return(out)
 }
 
+#' @post /ip
+#' @serializer unboxedJSON
+function(req){
+  ip <- system("dig +short myip.opendns.com @resolver1.opendns.com", intern = T)
+  return(ip)
+}
+
+#' @post /vpn
+#' @serializer unboxedJSON
+function(req){
+  cmd <- req$postBody
+  connect(cmd$country, cmd$index)
+
+  return("")
+}
+
 #' @post /sytemr_verbose
 #' @serializer unboxedJSON
 function(req){
@@ -14,6 +30,13 @@ function(req){
 
   out <- system(cmd, intern = T)
   return(out)
+}
+
+#' @post /no_vpn
+#' @serializer unboxedJSON
+function(req){
+  system("killall openvpn")
+  return()
 }
 
 #' @post /get

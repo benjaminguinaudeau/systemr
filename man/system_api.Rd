@@ -4,7 +4,7 @@
 \alias{system_api}
 \title{system_api}
 \usage{
-system_api(cmd = "", host = "localhost", port = 5000)
+system_api(cmd = "", host = "localhost", port = 5000, verbose = F)
 }
 \description{
 system_api

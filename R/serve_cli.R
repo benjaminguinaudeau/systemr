@@ -1,6 +1,6 @@
 #' serve_cli
 #' @export
-serve_cli <- function(host = "127.0.0.1", port = 5000){
+serve_cli <- function(host = "0.0.0.0", port = 5000){
   file <- fs::file_temp()
   download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
   pr <- plumber::plumb(file = file)
@@ -13,5 +13,33 @@ system_api <- function(cmd = "", host = "localhost", port = 5000, verbose = F){
   endpoint <- ifelse(verbose, "sytemr_verbose", "systemr")
   req <- httr::POST(url = glue::glue("http://{host}:{port}/{endpoint}"),  body  = cmd, encode = "json")
   rawToChar(req$content)
+}
+
+#' connect_api
+#' @export
+connect_api <- function(country = "us", index = NULL, host = "localhost", port = 5000, verbose = F){
+  endpoint <- "vpn"
+  req <- httr::POST(url = glue::glue("http://{host}:{port}/{endpoint}"),  body  = list(country = country, index = index), encode = "json")
+  rawToChar(req$content)
+}
+
+#' connect
+#' @export
+connect <- function(country = "us", index = NULL){
+  files <-  stringr::str_subset(dir("/etc/openvpn", pattern  = glue::glue("^{country}"), full.names = T),"\\.tcp")
+  if(!is.null(index)){
+    file <- stringr::str_subset(files, paste0(country, index, "\\."))
+  } else {
+    file <- sample(files, 1)
+  }
+
+  if(!fs::file_exists(file)){
+    message("Index not existent, using a random config")
+    file <- sample(files, 1)
+    message(file)
+  }
+
+  system(glue::glue('echo "auth-user-pass auth.txt" >> {file}'))
+  system(glue::glue("openvpn {file} &"))
 }
 
