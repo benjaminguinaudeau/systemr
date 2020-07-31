@@ -29,6 +29,7 @@ connect_api <- function(country = "us", index = 0, host = "localhost", port = 50
 kill_vpn_api <- function(host = "localhost", port = 5000){
 
   req <- httr::POST(url = glue::glue("http://{host}:{port}/kill_vpn"),  body  = list(), encode = "json")
+  return(invisible(req))
 }
 
 #' ip_api
@@ -60,7 +61,7 @@ connect <- function(country = "us", index = 0){
     message(file)
   }
 
-  system(glue::glue('echo "auth-user-pass auth.txt" >> {file}'))
+  system(glue::glue('echo "auth-user-pass /etc/openvpn/auth.txt" >> {file}'))
   system(glue::glue("openvpn {file} &"))
 
   return(file)
