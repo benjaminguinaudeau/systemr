@@ -2,7 +2,11 @@
 #' @export
 serve_cli <- function(host = "0.0.0.0", port = 5000){
   file <- fs::file_temp()
-  download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
+  index <- 0
+  while(index < 3 | !file.exists(file)){
+    download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
+    Sys.sleep(10)
+  }
   # file <- here::here("R/api.R")
   pr <- plumber::plumb(file = file)
   pr$run(host = host, port = port, swagger = F)
