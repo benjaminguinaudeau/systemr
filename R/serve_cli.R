@@ -3,8 +3,9 @@
 serve_cli <- function(host = "0.0.0.0", port = 5000){
   file <- fs::file_temp()
   index <- 0
-  while(index < 3 | !file.exists(file)){
-    download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T)
+  try(download.file("https://raw.githubusercontent.com/benjaminguinaudeau/systemr/master/R/api.R", destfile = file,quiet = T))
+  while(index < 3 & !file.exists(file)){
+    index <- index + 1
     Sys.sleep(10)
   }
   # file <- here::here("R/api.R")
