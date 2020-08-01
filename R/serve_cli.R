@@ -35,7 +35,7 @@ kill_vpn_api <- function(host = "localhost", port = 5000){
 #' ip_api
 #' @export
 ip_api <- function(host = "localhost", port = 5000){
-  req <- httr::POST(url = glue::glue("http://{host}:{port}/ip"),  body  = list(), encode = "json")
+  req <- httr::POST(url = glue::glue("http://{host}:{port}/ip"),  httr::timeout(5))
   jsonlite::fromJSON(rawToChar(req$content))
 }
 
