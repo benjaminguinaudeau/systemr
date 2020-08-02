@@ -50,7 +50,7 @@ function(req){
 function(req){
   res <- jsonlite::fromJSON(req$postBody)
 
-  print(glue::glue("[{Sys.time()} ] GET res$URL"))
+  print(glue::glue("[{Sys.time()} ] GET {res$URL}"))
 
   head_names <- names(res[[2]])
   res[[2]] <- as.character(res[[2]])
