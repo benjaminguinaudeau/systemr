@@ -38,4 +38,3 @@ From your rstudio session, you can now run system_api, whic will execute the cod
 ``` r
 system_api("pwd")
 ```
-

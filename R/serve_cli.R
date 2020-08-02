@@ -11,6 +11,7 @@ serve_cli <- function(host = "0.0.0.0", port = 5000){
   # file <- here::here("R/api.R")
   pr <- plumber::plumb(file = file)
   pr$run(host = host, port = port, swagger = F)
+
 }
 
 #' system_api

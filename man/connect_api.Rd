@@ -4,13 +4,7 @@
 \alias{connect_api}
 \title{connect_api}
 \usage{
-connect_api(
-  country = "us",
-  index = NULL,
-  host = "localhost",
-  port = 5000,
-  verbose = F
-)
+connect_api(country = "us", index = 0, host = "localhost", port = 5000)
 }
 \description{
 connect_api
