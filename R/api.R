@@ -61,7 +61,7 @@ function(req){
   return(jsonlite::fromJSON(rawToChar(out$content)))
 }
 
-#' @post /get_raw
+#' @post /raw
 function(req){
   res <- jsonlite::fromJSON(req$postBody)
 
@@ -71,7 +71,9 @@ function(req){
   res[[2]] <- as.character(res[[2]])
   names(res[[2]]) <- head_names
 
+  print(res[[2]])
+  
   out <- httr::GET(res$url, httr::add_headers(.headers = res[[2]]))
 
-  return(out$content)
+  return(out)
 }
