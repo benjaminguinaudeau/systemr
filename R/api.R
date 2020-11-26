@@ -60,3 +60,18 @@ function(req){
 
   return(jsonlite::fromJSON(rawToChar(out$content)))
 }
+
+#' @post /get_raw
+function(req){
+  res <- jsonlite::fromJSON(req$postBody)
+
+  print(glue::glue("[{Sys.time()} ] GET {res$url}"))
+
+  head_names <- names(res[[2]])
+  res[[2]] <- as.character(res[[2]])
+  names(res[[2]]) <- head_names
+
+  out <- httr::GET(res$url, httr::add_headers(.headers = res[[2]]))
+
+  return(out$content)
+}
